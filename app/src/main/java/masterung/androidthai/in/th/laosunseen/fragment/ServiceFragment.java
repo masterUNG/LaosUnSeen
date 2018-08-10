@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,9 +27,10 @@ import java.util.Map;
 
 import masterung.androidthai.in.th.laosunseen.R;
 import masterung.androidthai.in.th.laosunseen.utility.MyAlert;
+import masterung.androidthai.in.th.laosunseen.utility.ServiceAdapter;
 import masterung.androidthai.in.th.laosunseen.utility.UserModel;
 
-public class ServiceFragment extends Fragment{
+public class ServiceFragment extends Fragment {
 
     private String nameString, currentPostString, uidString;
     private String tag = "10AugV1";
@@ -49,8 +51,12 @@ public class ServiceFragment extends Fragment{
 
     private void createRecyclerView() {
 
-        RecyclerView recyclerView = getView().findViewById(R.id.recyclerViewUser);
+        final RecyclerView recyclerView = getView().findViewById(R.id.recyclerViewUser);
         final int[] countInts = new int[]{0};
+
+        final ArrayList<String> photoStringArrayList = new ArrayList<>();
+        final ArrayList<String> nameStringArrayList = new ArrayList<>();
+        final ArrayList<String> postStringArrayList = new ArrayList<>();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("User");
@@ -70,17 +76,30 @@ public class ServiceFragment extends Fragment{
                     UserModel userModel1 = modelArrayList.get(countInts[0]);
                     countInts[0] += 1;
 
+                    photoStringArrayList.add(userModel1.getPathUrlString());
+                    nameStringArrayList.add(userModel1.getNameString());
+                    postStringArrayList.add(userModel1.getMyPostString());
 
 
-                }
+                }   //for
 
-            }
+                ServiceAdapter serviceAdapter = new ServiceAdapter(getActivity(),
+                        photoStringArrayList, nameStringArrayList, postStringArrayList);
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
+                        LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(serviceAdapter);
+
+            }   // dataChange
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+
 
 
     }   // createRecycler
@@ -103,7 +122,7 @@ public class ServiceFragment extends Fragment{
                 currentPostString = String.valueOf(map.get("myPostString"));
                 Log.d(tag, "Name ==> " + nameString);
                 Log.d(tag, "currentPost ==> " + currentPostString);
-                Toast.makeText(getActivity(),"Name ==> " + nameString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Name ==> " + nameString, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -154,7 +173,7 @@ public class ServiceFragment extends Fragment{
         resultString = currentPostString.substring(1, currentPostString.length() - 1);
         String[] strings = resultString.split(",");
         ArrayList<String> stringArrayList = new ArrayList<>();
-        for (int i=0; i<strings.length; i+=1) {
+        for (int i = 0; i < strings.length; i += 1) {
             stringArrayList.add(strings[i].trim());
         }
         stringArrayList.add(postString);

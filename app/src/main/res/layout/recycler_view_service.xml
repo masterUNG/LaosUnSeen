@@ -5,6 +5,7 @@
     android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circlePhoto"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_margin="5dp" />
@@ -15,6 +16,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
@@ -23,6 +25,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/txtPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Last Post"

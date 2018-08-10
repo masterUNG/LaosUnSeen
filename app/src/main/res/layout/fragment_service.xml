@@ -4,10 +4,10 @@
     android:layout_height="match_parent">
 
     <!--List Friend-->
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_above="@+id/linearBottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"/>
 
     <!--Post-->
     <LinearLayout

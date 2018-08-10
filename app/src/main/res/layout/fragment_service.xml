@@ -5,6 +5,7 @@
 
     <!--List Friend-->
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewUser"
         android:layout_above="@+id/linearBottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

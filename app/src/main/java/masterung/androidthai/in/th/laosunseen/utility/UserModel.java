@@ -11,7 +11,9 @@ public class UserModel implements Parcelable{
     public UserModel() {
     }
 
-    public UserModel(String uidString, String nameString, String emailString, String pathUrlString, String myPostString) {
+    public UserModel(String uidString, String nameString,
+                     String emailString, String pathUrlString,
+                     String myPostString) {
         this.uidString = uidString;
         this.nameString = nameString;
         this.emailString = emailString;

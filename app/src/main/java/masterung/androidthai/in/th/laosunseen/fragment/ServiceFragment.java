@@ -64,25 +64,17 @@ public class ServiceFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 int i = (int) dataSnapshot.getChildrenCount();
                 ArrayList<UserModel> modelArrayList = new ArrayList<>();
-
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
                     UserModel userModel = dataSnapshot1.getValue(UserModel.class);
                     modelArrayList.add(userModel);
-
                     UserModel userModel1 = modelArrayList.get(countInts[0]);
                     countInts[0] += 1;
-
                     photoStringArrayList.add(userModel1.getPathUrlString());
                     nameStringArrayList.add(userModel1.getNameString());
                     postStringArrayList.add(userModel1.getMyPostString());
-
-
                 }   //for
-
                 ServiceAdapter serviceAdapter = new ServiceAdapter(getActivity(),
                         photoStringArrayList, nameStringArrayList, postStringArrayList);
 
@@ -92,16 +84,11 @@ public class ServiceFragment extends Fragment {
                 recyclerView.setAdapter(serviceAdapter);
 
             }   // dataChange
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
-
-
-
     }   // createRecycler
 
     private void findMyMe() {

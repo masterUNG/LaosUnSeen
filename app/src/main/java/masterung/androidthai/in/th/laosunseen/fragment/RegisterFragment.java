@@ -123,19 +123,15 @@ public class RegisterFragment extends Fragment {
     }
 
     private void createAuthentication() {
-
         Log.d("8AugV1", "CreateAuthen Work");
-
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(emailString, passwordString)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
                             uidString = firebaseAuth.getCurrentUser().getUid();
                             Log.d("8AugV1", "uidString ==> " + uidString);
-
                         } else {
                             MyAlert myAlert = new MyAlert(getActivity());
                             myAlert.normalDialog("Cannot Register",
@@ -145,25 +141,18 @@ public class RegisterFragment extends Fragment {
                         }
                     }
                 });
-
-
-
     }
 
     private void uploadPhotoToFirebase() {
-
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference();
         StorageReference storageReference1 = storageReference.child("Avata/" + nameString);
-
-
         storageReference1.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(getActivity(), "Success Upload Photo", Toast.LENGTH_SHORT).show();
                 findPathUrlPhoto();
                 createPost();
-
                 progressDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -174,10 +163,6 @@ public class RegisterFragment extends Fragment {
                 progressDialog.dismiss();
             }
         });
-
-
-
-
     }   // uploadPhoto
 
     private void createDatabase() {
